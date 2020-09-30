@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+import sys
+
+def remove_trailing_dot(msg):
+	if msg[-1] == ".":
+		print("\t* Commit messages shouldn't have a trailing dot")
+		return msg[:-1]
+	return msg
+
+def main():
+	file_path = sys.argv[1]
+	with open(file_path, 'r') as f:
+		content = f.readlines()
+
+	subject, body = content[0], content[1:]
+	subject = subject.strip()
+
+	print(f"Running grammaticommit on subject:\n\t{subject}\n")
+
+	fixed_line = remove_trailing_dot(subject)
+	fixed_line = fixed_line + "\n"
+
+	print()
+	print(f"New commit subject:\n\t{fixed_line}")
+
+	with open(file_path, 'w') as f:
+		f.writelines([fixed_line, *body])
+
+if __name__ == "__main__":
+	main()
