@@ -13,6 +13,7 @@ setup(name='grammaticommit',
 	  author='FdelMazo',
 	  install_requires=['termcolor>=1.1.0', 'Pattern>=3.6'],
 	  packages=['grammaticommit'],
+	  python_requires='~=3.6, <3.7',
 	  package_data={'grammaticommit': ['commit-msg']},
 	  scripts=['script/grammaticommit'],
 	  classifiers=[
