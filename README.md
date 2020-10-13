@@ -42,6 +42,8 @@ From all of this sources, the final list of rules that this project follows is..
 
 - No trailing period (you are using one precious character!)
 
+- Optionally, declare the area of the project in which the commit makes changes, prefixing the message with the area and a colon
+
 Note that not everything from the 3 sources was taken into account, only an intersection of them. For example, while Chris and Tim suggest to capitalize the commit, Linus says to commit all in lowercase, so grammaticommit takes no stance on the matter (specially in this particular case because people tend to capitalize everything, in other cases I tend to take Linus word over the rest).
 
 If you have any other grammar rule that a commit message should follow, backed with good sources, make an issue, and I'll add it.
