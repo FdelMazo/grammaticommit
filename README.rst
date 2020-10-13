@@ -9,6 +9,9 @@ Fix your damn commit message grammar!
 
 **TL;DR: Commit in imperative mood**
 
+.. image:: https://i.imgur.com/gc4yEpw.gif
+    :target: https://asciinema.org/a/365069
+
 ------------
 
 What does this do?
