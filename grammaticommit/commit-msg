@@ -22,7 +22,10 @@ def is_imperative(msg):
 	return imperative(Sentence(parse(msg)))
 
 def change_to_imperative_mood(msg):
-	sentence = Sentence(parse(msg))
+	# We add a pronoun to the msg, so that it forces the pos tag to be a verb
+	# This prevents confusion between a noun and a verb
+	sentence = Sentence(parse("He " + msg))
+
 	for i, verb in enumerate(sentence):
 		is_verb = verb.type.startswith(("VB","MD")) and (verb.chunk is None or verb.chunk.type.endswith("VP"))
 		if is_verb:
@@ -38,7 +41,7 @@ def change_to_imperative_mood(msg):
 	elif verb.isupper(): fixed_verb = fixed_verb.upper()
 	elif verb.islower(): fixed_verb = fixed_verb.lower()
 
-	splitted_msg[i] = fixed_verb
+	splitted_msg[i-1] = fixed_verb
 	return ' '.join(splitted_msg)
 
 def change_verb_mood(msg, error_queue):
