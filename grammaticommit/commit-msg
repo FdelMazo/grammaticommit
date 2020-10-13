@@ -19,6 +19,8 @@ def main():
 	subject, body = content[0], content[1:]
 	subject = subject.strip()
 
+	if "initial commit" in subject.lower(): return
+
 	error_queue = []
 
 	fixed_line = remove_trailing_dot(subject, error_queue)
