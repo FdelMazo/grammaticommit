@@ -6,7 +6,7 @@ def readme():
 
 
 setup(name='grammaticommit',
-	  version='0.1',
+	  version='0.2',
 	  description='Fix your damn commit message grammar!',
 	  long_description=readme(),
 	  url='https://github.com/FdelMazo/grammaticommit',

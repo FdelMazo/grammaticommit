@@ -43,6 +43,8 @@ Then, we have the commands to install and uninstall the hook
 
 Remember that if for whatever reason (a false negative in your commit message, for example) you want to skip the check for a single commit, you can always run `git commit -m "My message" --no-verify`
 
+If you encounter any false negative (a commit message that follows the guidelines, yet it's being flagged as incorrect, or even being wrongly fixed), please raise up an issue so that I can fix it.
+
 Commit grammar
 --------------
 
