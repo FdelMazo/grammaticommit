@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
 import argparse
-from grammaticommit import install
+from grammaticommit import install, uninstall
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--global',
                         dest='globally',
                         action='store_true')
+    parser.add_argument('--uninstall',
+                    action='store_true')
+
     args = parser.parse_args()
 
-    install(args.globally or False)
+    if args.uninstall:
+        uninstall(args.globally or False)
+
+    else:
+        install(args.globally or False)

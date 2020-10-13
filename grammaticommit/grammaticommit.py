@@ -4,7 +4,7 @@ from subprocess import DEVNULL, call
 
 module = os.path.abspath(os.path.dirname(__file__))
 src = [module, "commit-msg"]
-local_dst = [".git", "hooks", "commit-msg"]
+dst = [".git", "hooks", "commit-msg"]
 
 def install(globally):
 	if globally:
@@ -25,12 +25,24 @@ def install(globally):
 			print("Make sure you call `grammaticommit` from within the repository's root")
 			return
 
-		if os.path.exists(os.path.join(*local_dst)):
+		if os.path.exists(os.path.join(*dst)):
 			print("You already have a commit-msg hook installed in this repository!")
-			print(f"It is placed on {os.path.join(*local_dst)}")
+			print(f"It is placed on {os.path.join(*dst)}")
 			print("Delete it before installing grammaticommit!")
 			return
 
-		copyfile(os.path.join(*src), os.path.join(*local_dst))
-		mode = os.stat(os.path.join(*local_dst))
-		os.chmod(os.path.join(*local_dst), mode.st_mode | stat.S_IEXEC)
+		copyfile(os.path.join(*src), os.path.join(*dst))
+		mode = os.stat(os.path.join(*dst))
+		os.chmod(os.path.join(*dst), mode.st_mode | stat.S_IEXEC)
+
+def uninstall(globally):
+	if globally:
+		call(['git', 'config', '--global', '--unset', 'core.hooksPath'])
+
+	else:
+		if not os.path.exists('.git'):
+			print("This is not a local git repository!")
+			print("Make sure you call `grammaticommit` from within the repository's root")
+			return
+
+		call(['git', 'config', 'core.hooksPath', os.path.join(*[".git", "hooks"])])
