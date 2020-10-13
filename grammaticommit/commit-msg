@@ -4,6 +4,7 @@ import sys
 from termcolor import colored
 from pattern import en
 from pattern.text.en.modality import imperative
+from pattern.en import conjugate
 
 def remove_trailing_dot(msg, error_queue):
 	if msg[-1] == ".":
@@ -17,11 +18,29 @@ def check_character_limit(msg, error_queue):
 		return False
 	return True
 
+
 def is_imperative(msg):
 	return imperative(en.Sentence(en.parse(msg)))
 
 def change_to_imperative_mood(msg):
-	return msg
+	sentence = en.Sentence(en.parse(msg))
+	for i, verb in enumerate(sentence):
+		is_verb = verb.type.startswith(("VB","MD")) and (verb.chunk is None or verb.chunk.type.endswith("VP"))
+		if is_verb:
+			break
+
+	verb = verb.string
+
+	# Verb in imperative mood === Verb in second person, indicative, present tense
+	fixed_verb = conjugate(verb, mood = "indicative", person = 2, tense = "present")
+	splitted_msg = msg.split()
+
+	if verb.istitle(): fixed_verb = fixed_verb.title()
+	elif verb.isupper(): fixed_verb = fixed_verb.upper()
+	elif verb.islower(): fixed_verb = fixed_verb.lower()
+
+	splitted_msg[i] = fixed_verb
+	return ' '.join(splitted_msg)
 
 def change_verb_mood(msg, error_queue):
 	splitted_msg = msg.split(':')
