@@ -41,6 +41,8 @@ Then, we have the commands to install and uninstall the hook
 
 - Uninstall the hook for all of your git repos: `grammaticommit --global --uninstall`
 
+Remember that if for whatever reason (a false negative in your commit message, for example) you want to skip the check for a single commit, you can always run `git commit -m "My message" --no-verify`
+
 Commit grammar
 --------------
 
