@@ -5,81 +5,95 @@ from termcolor import colored
 from pattern.text.en.modality import imperative
 from pattern.en import conjugate, parse, Sentence
 
+
 def remove_trailing_dot(msg, error_queue):
-	if msg[-1] == ".":
-		error_queue.append(f"{colored('*', 'red')} Commit messages shouldn't have a trailing dot")
-		return msg[:-1]
-	return msg
+    if msg[-1] == ".":
+        error_queue.append(
+            f"{colored('*', 'red')} Commit messages shouldn't have a trailing dot"
+        )
+        return msg[:-1]
+    return msg
+
 
 def check_character_limit(msg, error_queue):
-	if len(msg) > 50:
-		error_queue.append(f"{colored('*', 'red')} Commit messages shouldn't be more than 50 characters long")
-		return False
-	return True
+    if len(msg) > 50:
+        error_queue.append(
+            f"{colored('*', 'red')} Commit messages shouldn't be more than 50 characters long"
+        )
+        return False
+    return True
 
 
 def is_imperative(msg):
-	return imperative(Sentence(parse(msg)))
+    return imperative(Sentence(parse(msg)))
+
 
 def change_to_imperative_mood(msg):
-	splitted_msg = msg.split()
-	verb = splitted_msg[0]
+    splitted_msg = msg.split()
+    verb = splitted_msg[0]
 
-	# Verb in imperative mood === Verb in second person, indicative, present tense
-	fixed_verb = conjugate(verb, mood = "indicative", person = 2, tense = "present")
+    # Verb in imperative mood === Verb in second person, indicative, present tense
+    fixed_verb = conjugate(verb, mood="indicative", person=2, tense="present")
 
-	if verb.istitle(): fixed_verb = fixed_verb.title()
-	elif verb.isupper(): fixed_verb = fixed_verb.upper()
-	elif verb.islower(): fixed_verb = fixed_verb.lower()
+    if verb.istitle():
+        fixed_verb = fixed_verb.title()
+    elif verb.isupper():
+        fixed_verb = fixed_verb.upper()
+    elif verb.islower():
+        fixed_verb = fixed_verb.lower()
 
-	splitted_msg[0] = fixed_verb
-	return ' '.join(splitted_msg)
+    splitted_msg[0] = fixed_verb
+    return " ".join(splitted_msg)
+
 
 def change_verb_mood(msg, error_queue):
-	splitted_msg = msg.split(':')
-	subject = splitted_msg[-1]
+    splitted_msg = msg.split(":")
+    subject = splitted_msg[-1]
 
-	if not is_imperative(subject):
-		error_queue.append(f"{colored('*', 'red')} Commit messages should be written in imperative mood")
-		fixed_subject = change_to_imperative_mood(subject)
-		splitted_msg[-1] = fixed_subject
+    if not is_imperative(subject):
+        error_queue.append(
+            f"{colored('*', 'red')} Commit messages should be written in imperative mood"
+        )
+        fixed_subject = change_to_imperative_mood(subject)
+        splitted_msg[-1] = fixed_subject
 
-	return ':'.join(splitted_msg)
+    return ":".join(splitted_msg)
+
 
 def main():
-	file_path = sys.argv[1]
-	with open(file_path, 'r') as f:
-		content = f.readlines()
+    file_path = sys.argv[1]
+    with open(file_path, "r") as f:
+        content = f.readlines()
 
-	subject, body = content[0], content[1:]
-	subject = subject.strip()
+    subject, body = content[0], content[1:]
+    subject = subject.strip()
 
-	if "initial commit" in subject.lower(): return
+    if "initial commit" in subject.lower():
+        return
 
-	error_queue = []
+    error_queue = []
 
-	fixed_line = remove_trailing_dot(subject, error_queue)
-	fixed_line = change_verb_mood(fixed_line, error_queue)
+    fixed_line = remove_trailing_dot(subject, error_queue)
+    fixed_line = change_verb_mood(fixed_line, error_queue)
 
-	correct_char_limit = check_character_limit(fixed_line, error_queue)
+    correct_char_limit = check_character_limit(fixed_line, error_queue)
 
-	if error_queue:
-		print("grammaticommit analysis:")
-		for e in error_queue:
-			print('\t' + e)
-		if subject != fixed_line:
-			print(f"\n{colored(subject, 'red')} -> {colored(fixed_line, 'green')}\n")
+    if error_queue:
+        print("grammaticommit analysis:")
+        for e in error_queue:
+            print("\t" + e)
+        if subject != fixed_line:
+            print(f"\n{colored(subject, 'red')} -> {colored(fixed_line, 'green')}\n")
 
-	if not correct_char_limit:
-		raise ValueError("Shorten your commit")
+    if not correct_char_limit:
+        raise ValueError("Shorten your commit")
 
-	if not error_queue and correct_char_limit:
-		print(f"grammaticommit {colored('✓', 'green')}\n")
+    if not error_queue and correct_char_limit:
+        print(f"grammaticommit {colored('✓', 'green')}\n")
 
-
-	with open(file_path, 'w') as f:
-		f.writelines([fixed_line + "\n", *body])
+    with open(file_path, "w") as f:
+        f.writelines([fixed_line + "\n", *body])
 
 
 if __name__ == "__main__":
-	main()
+    main()

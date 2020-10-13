@@ -4,11 +4,8 @@ from grammaticommit import install, uninstall
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--global',
-                        dest='globally',
-                        action='store_true')
-    parser.add_argument('--uninstall',
-                    action='store_true')
+    parser.add_argument("--global", dest="globally", action="store_true")
+    parser.add_argument("--uninstall", action="store_true")
 
     args = parser.parse_args()
 
