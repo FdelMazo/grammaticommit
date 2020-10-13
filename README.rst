@@ -33,7 +33,7 @@ body, where the rules are a little bit more relaxed.
 How do I use it?
 --------------------
 
-**Keep in mind, this package only works for Python 3.6, as after that version the `Pattern <https://github.com/clips/pattern>` package, which checks for the imperative mood, breaks**
+**Keep in mind, this package only works for Python 3.6, as after that version the Pattern package, which checks for the imperative mood, breaks**
 
 First we need to install the package
 
@@ -41,15 +41,15 @@ First we need to install the package
 
 Then, we have the commands to install and uninstall the hook
 
-- Install the hook for the current repo (this should be used within the repo root): `grammaticommit`
+- Install the hook for the current repo (this should be used within the repo root): ``grammaticommit``
 
-- Install the hook globally for all of your git repos: `grammaticommit --global`
+- Install the hook globally for all of your git repos: ``grammaticommit --global``
 
-- Uninstall the hook for the current repo (this should be used within the repo root): `grammaticommit --uninstall`
+- Uninstall the hook for the current repo (this should be used within the repo root): ``grammaticommit --uninstall``
 
-- Uninstall the hook for all of your git repos: `grammaticommit --global --uninstall`
+- Uninstall the hook for all of your git repos: ``grammaticommit --global --uninstall``
 
-Remember that if for whatever reason (a false negative in your commit message, for example) you want to skip the check for a single commit, you can always run `git commit -m "My message" --no-verify`
+Remember that if for whatever reason (a false negative in your commit message, for example) you want to skip the check for a single commit, you can always run ``git commit -m "My message" --no-verify``
 
 If you encounter any false negative (a commit message that follows the guidelines, yet it's being flagged as incorrect, or even being wrongly fixed), please raise up an issue so that I can fix it.
 
