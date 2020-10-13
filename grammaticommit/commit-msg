@@ -55,7 +55,8 @@ def main():
 		print("grammaticommit analysis:")
 		for e in error_queue:
 			print('\t' + e)
-		print(f"\n{colored(subject, 'red')} -> {colored(fixed_line, 'green')}\n")
+		if subject != fixed_line:
+			print(f"\n{colored(subject, 'red')} -> {colored(fixed_line, 'green')}\n")
 
 	if not correct_char_limit:
 		raise ValueError("Shorten your commit")
