@@ -46,3 +46,6 @@ def uninstall(globally):
 			return
 
 		call(['git', 'config', 'core.hooksPath', os.path.join(*[".git", "hooks"])])
+
+	if os.path.exists(os.path.join(*dst)) and os.path.getsize(os.path.join(*src)) == os.path.getsize(os.path.join(*dst)):
+		os.remove(os.path.join(*dst))
