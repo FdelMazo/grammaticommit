@@ -1,5 +1,6 @@
 from shutil import copyfile
 import os, stat
+from subprocess import DEVNULL, call
 
 module = os.path.abspath(os.path.dirname(__file__))
 src = [module, "commit-msg"]
@@ -7,7 +8,13 @@ local_dst = [".git", "hooks", "commit-msg"]
 
 def install(globally):
 	if globally:
-		print("I should install myself globally")
+		globalhooks = call(['git', 'config', '--global', 'core.hooksPath'], stdout=DEVNULL)
+		if globalhooks == 0:
+			print("You already have global hooks directory set")
+			print("You should just copy and paste the commit-msg hook yourself instead of me overwriting it")
+			print(f"The commit-msg hook is placed on:\n\t{os.path.join(*src)}")
+			print("Your global hooks directory is:", end='\n\t')
+			call(['git', 'config', '--global', 'core.hooksPath'])
 
 	else:
 		if not os.path.exists('.git'):
