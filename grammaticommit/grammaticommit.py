@@ -16,6 +16,9 @@ def install(globally):
 			print("Your global hooks directory is:", end='\n\t')
 			call(['git', 'config', '--global', 'core.hooksPath'])
 
+		else:
+			call(['git', 'config', '--global', 'core.hooksPath', os.path.join(module)])
+
 	else:
 		if not os.path.exists('.git'):
 			print("This is not a local git repository!")
