@@ -2,7 +2,8 @@
 # -*- coding: UTF-8 -*-
 import sys
 from termcolor import colored
-
+from pattern import en
+from pattern.text.en.modality import imperative
 
 def remove_trailing_dot(msg, error_queue):
 	if msg[-1] == ".":
@@ -15,6 +16,23 @@ def check_character_limit(msg, error_queue):
 		error_queue.append(f"{colored('*', 'red')} Commit messages shouldn't be more than 50 characters long")
 		return False
 	return True
+
+def is_imperative(msg):
+	return imperative(en.Sentence(en.parse(msg)))
+
+def change_to_imperative_mood(msg):
+	return msg
+
+def change_verb_mood(msg, error_queue):
+	splitted_msg = msg.split(':')
+	subject = splitted_msg[-1]
+
+	if not is_imperative(subject):
+		error_queue.append(f"{colored('*', 'red')} Commit messages should be written in imperative mood")
+		fixed_subject = change_to_imperative_mood(subject)
+		splitted_msg[-1] = fixed_subject
+
+	return ':'.join(splitted_msg)
 
 def main():
 	file_path = sys.argv[1]
@@ -29,7 +47,7 @@ def main():
 	error_queue = []
 
 	fixed_line = remove_trailing_dot(subject, error_queue)
-	# fixed_line = change_verb_mood(subject, error_queue)
+	fixed_line = change_verb_mood(fixed_line, error_queue)
 
 	correct_char_limit = check_character_limit(fixed_line, error_queue)
 
@@ -43,7 +61,7 @@ def main():
 		raise ValueError("Shorten your commit")
 
 	if not error_queue and correct_char_limit:
-		print(f"grammaticommit {colored('✓', 'green')}")
+		print(f"grammaticommit {colored('✓', 'green')}\n")
 
 
 	with open(file_path, 'w') as f:

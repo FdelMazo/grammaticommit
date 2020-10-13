@@ -25,6 +25,8 @@ body, where the rules are a little bit more relaxed.
 How do I use it?
 --------------------
 
+**Keep in mind, this package only works for Python 3.6, as after that version the `Pattern <https://github.com/clips/pattern>` package, which checks for the imperative mood, breaks**
+
 First we need to install the package
 
 ``pip install grammaticommit``
@@ -67,7 +69,7 @@ So, the full list of sources for this is, in order of priority:
 From all of this sources, the final list of rules that this project
 follows is...
 
--  Imperative mood, always (in the present tense)
+-  Imperative mood, always
 
 -  50 characters
 

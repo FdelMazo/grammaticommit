@@ -11,12 +11,11 @@ setup(name='grammaticommit',
 	  long_description=readme(),
 	  url='https://github.com/FdelMazo/grammaticommit',
 	  author='FdelMazo',
-	  install_requires=['termcolor>=1.1.0'],
+	  install_requires=['termcolor>=1.1.0', 'Pattern>=3.6'],
 	  packages=['grammaticommit'],
 	  package_data={'grammaticommit': ['commit-msg']},
 	  scripts=['script/grammaticommit'],
 	  classifiers=[
-		  'Programming Language :: Python :: 2',
-		  'Programming Language :: Python :: 3'
+		  'Programming Language :: Python :: 3.6'
 	  ]
 )
