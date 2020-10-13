@@ -22,14 +22,22 @@ rules of the message itself.
 Also, it only cares about the subject of the commit message, not the
 body, where the rules are a little bit more relaxed.
 
-How do I install it?
+How do I use it?
 --------------------
 
-TODO: Describe with more onda
+First we need to install the package
 
 ``pip install grammaticommit``
 
-``grammaticommit`` or ``grammaticommit --global``
+Then, we have the commands to install and uninstall the hook
+
+- Install the hook for the current repo (this should be used within the repo root): `grammaticommit`
+
+- Install the hook globally for all of your git repos: `grammaticommit --global`
+
+- Uninstall the hook for the current repo (this should be used within the repo root): `grammaticommit --uninstall`
+
+- Uninstall the hook for all of your git repos: `grammaticommit --global --uninstall`
 
 Commit grammar
 --------------
@@ -71,9 +79,11 @@ follows is...
 Note that not everything from the 3 sources was taken into account, only
 an intersection of them. For example, while Chris and Tim suggest to
 capitalize the commit, Linus says to commit all in lowercase, so
-grammaticommit takes no stance on the matter (specially in this
+`grammaticommit` takes no stance on the matter (specially in this
 particular case because people tend to capitalize everything, in other
 cases I tend to take Linus word over the rest).
 
 If you have any other grammar rule that a commit message should follow,
 backed with good sources, make an issue, and I'll add it.
+
+PS: This doesn't apply to "Initial Commit" messages.
