@@ -4,7 +4,12 @@ grammaticommit
 
 Fix your damn commit message grammar!
 
+.. image:: https://badge.fury.io/py/grammaticommit.svg
+    :target: https://badge.fury.io/py/grammaticommit
+
 **TL;DR: Commit in imperative mood**
+
+------------
 
 What does this do?
 ------------------
