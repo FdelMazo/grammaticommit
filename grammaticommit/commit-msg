@@ -22,17 +22,17 @@ def is_imperative(msg):
 	return imperative(Sentence(parse(msg)))
 
 def change_to_imperative_mood(msg):
-	verb = msg[0]
+	splitted_msg = msg.split()
+	verb = splitted_msg[0]
 
 	# Verb in imperative mood === Verb in second person, indicative, present tense
 	fixed_verb = conjugate(verb, mood = "indicative", person = 2, tense = "present")
-	splitted_msg = msg.split()
 
 	if verb.istitle(): fixed_verb = fixed_verb.title()
 	elif verb.isupper(): fixed_verb = fixed_verb.upper()
 	elif verb.islower(): fixed_verb = fixed_verb.lower()
 
-	splitted_msg[i-6] = fixed_verb
+	splitted_msg[0] = fixed_verb
 	return ' '.join(splitted_msg)
 
 def change_verb_mood(msg, error_queue):
