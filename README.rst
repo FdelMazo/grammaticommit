@@ -33,7 +33,7 @@ body, where the rules are a little bit more relaxed.
 How do I use it?
 --------------------
 
-**Keep in mind, this package only works for Python 3.6, as after that version the Pattern package, which checks for the imperative mood, breaks**
+Keep in mind, this package only works for Python 3.6, as after that version the Pattern package, which checks for the imperative mood, `breaks <https://github.com/clips/pattern/issues/62>`__
 
 First we need to install the package
 
