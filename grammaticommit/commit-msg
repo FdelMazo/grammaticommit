@@ -50,7 +50,18 @@ def change_verb_mood(msg, error_queue):
     splitted_msg = msg.split(":")
     subject = splitted_msg[-1]
 
-    if not is_imperative(subject):
+    try:
+        isimperative = is_imperative(subject)
+    except RuntimeError:
+        isimperative = True
+        error_queue.append(
+            f"{colored('*', 'blue')} If you are on a Python version greater than 3.6, you must install the correct Pattern version to allow grammaticommit to check for imperative verbs"
+        )
+        error_queue.append(
+            f"{colored('*', 'blue')} pip install git+git://github.com/clips/pattern.git@17f215438166729114762c3d9b3179dacd31490d"
+        )
+
+    if not isimperative:
         error_queue.append(
             f"{colored('*', 'red')} Commit messages should be written in imperative mood"
         )

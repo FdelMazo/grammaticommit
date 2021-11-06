@@ -33,8 +33,6 @@ body, where the rules are a little bit more relaxed.
 How do I use it?
 --------------------
 
-Keep in mind, this package only works for Python 3.6, as after that version the Pattern package, which checks for the imperative mood, `breaks <https://github.com/clips/pattern/issues/62>`__
-
 First we need to install the package
 
 ``pip install grammaticommit``
@@ -52,6 +50,11 @@ Then, we have the commands to install and uninstall the hook
 Remember that if for whatever reason (a false negative in your commit message, for example) you want to skip the check for a single commit, you can always run ``git commit -m "My message" --no-verify``
 
 If you encounter any false negative (a commit message that follows the guidelines, yet it's being flagged as incorrect, or even being wrongly fixed), please raise up an issue so that I can fix it.
+
+Python Versions
+---------------
+
+This package correctly works for Python 3.6, but needs a `quick fix <https://github.com/clips/pattern/issues/62>`__ for Python 3.7 and onwards. Currently, the library that is used to check for the imperative mood is not compatible on their main release with Py>=3.7. To fix this, we must use a dev dependency. So, after doing the ``pip install grammaticommit`` one must run ``pip install git+git://github.com/clips/pattern.git@17f215438166729114762c3d9b3179dacd31490d``
 
 Commit grammar
 --------------
